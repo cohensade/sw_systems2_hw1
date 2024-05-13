@@ -82,7 +82,7 @@ bool Algorithms::isBipartite(const Graph& graph) {
         q.pop();
 
         std::vector<int> adjList = graph.getAdjacencyList(vertex);
-        for (int j = 0; j < adjList.size(); ++j) {
+        for (size_t j = 0; j < adjList.size(); ++j) {
             int adj = adjList[j];
             
             // If the adjacent vertex is not colored, color it with the opposite color
@@ -103,10 +103,61 @@ bool Algorithms::isBipartite(const Graph& graph) {
 }
 
 
-
-bool Algorithms::negativeCycle(const Graph& graph)
+bool Algorithms::negativeCycle(const Graph &graph) 
 {
-    // Implementation of negativeCycle algorithm
+    int numVertices = graph.getNumVertices();
+    std::vector<int> distances(numVertices, std::numeric_limits<int>::max()); // Distance array
+    std::vector<int> pi(numVertices, -1); // Predecessor array
+
+    // Initialize distances
+    distances[0] = 0; // Assume source vertex (e.g., vertex 0)
+
+    // Relax edges repeatedly (V-1 times)
+    for (int i = 0; i < numVertices - 1; ++i) {
+        for (int u = 0; u < numVertices; ++u) {
+            for (int v : graph.getAdjacencyList(u)) {
+                int weight = graph.getEdgeWeight(u, v);
+                if (distances[u] != std::numeric_limits<int>::max() && distances[u] + weight < distances[v]) {
+                    distances[v] = distances[u] + weight;
+                    pi[v] = u;
+                }
+            }
+        }
+    }
+
+    // Check for negative cycles
+    for (int u = 0; u < numVertices; ++u) {
+        for (int v : graph.getAdjacencyList(u)) {
+            int weight = graph.getEdgeWeight(u, v);
+            if (distances[u] != std::numeric_limits<int>::max() && distances[u] + weight < distances[v]) {
+                // Negative cycle detected
+                std::cerr << "Graph contains a negative cycle." << std::endl;
+
+                // Extract the cycle vertices
+                std::vector<int> cycleVertices;
+                int currentVertex = v;
+                while (currentVertex != -1 && currentVertex != u) 
+                {
+                    cycleVertices.push_back(currentVertex);
+                    currentVertex = pi[currentVertex];
+                }
+                cycleVertices.push_back(u); // Add the starting vertex
+                std::reverse(cycleVertices.begin(), cycleVertices.end()); // Reverse the path vertices
+
+                // Print the cycle
+                std::cout << "Negative cycle vertices: ";
+                for (int vertex : cycleVertices) 
+                {
+                    std::cout << vertex << " ";
+                }
+                std::cout << std::endl;
+
+                return true;
+            }
+        }
+    }
+
+    return false; // No negative cycle found
 }
 
 void Algorithms::DFS(const Graph& graph, int vertex, std::vector<bool>& visited) 

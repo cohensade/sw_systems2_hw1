@@ -22,6 +22,7 @@ public:
     static bool isContainsCycle(const Graph& graph);
     static bool isBipartite(const Graph& graph);
     static bool negativeCycle(const Graph& graph);
+
     
   
 };

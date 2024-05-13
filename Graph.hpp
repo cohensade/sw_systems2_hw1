@@ -19,7 +19,6 @@ public:
     int getNumVertices() const;
     vector<int>getAdjacencyList(int vertex) const;
     int getEdgeWeight(int src, int dest) const;
-    const vector<vector<int>>& getGraph() const;
 
 };
 

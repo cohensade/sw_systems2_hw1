@@ -14,9 +14,9 @@ int main() {
     // {1, 1, 1, 1, 1},
     // {1, 1, 1, 1, 1}
 
-    {0, 1, 1},
-    {1, 0, 1},
-    {1, 1, 0}
+    {0, 1, 0},
+    {1, 0, 16},
+    {0, -4, 0}
    
 };
 
@@ -52,7 +52,7 @@ if (Algorithms::isContainsCycle(graph))
     cout << "The graph not contain cycle. " << endl;
 }
 
-if (Algorithms::isBipartite)
+if (Algorithms::isBipartite(graph))
 {
     cout << "The graph is bipartite. " << endl;
 }
@@ -60,6 +60,16 @@ else
 {
     cout << "The graph is not bipartite. "<< endl;
 }
+
+if (Algorithms::negativeCycle(graph))
+{
+    cout << "The graph contain negative cycle. " << endl;
+}
+else
+{
+    cout << "The graph not contain negative cycle. " << endl;
+}
+
 
 
     return 0;

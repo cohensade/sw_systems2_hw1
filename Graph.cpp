@@ -53,9 +53,7 @@ int Graph::getEdgeWeight(int src, int dest) const
     }
 }
 
-const vector<vector<int>>& Graph::getGraph() const {
-        return adj;
-    }
+
 
 
 
