@@ -5,7 +5,8 @@
 #include <vector>
 
 using namespace std;
-
+namespace ariel
+{
 class Graph {
 private:
     int V; // Number of vertices
@@ -21,5 +22,5 @@ public:
     int getEdgeWeight(int src, int dest) const;
 
 };
-
+}
 #endif /* GRAPH_HPP */

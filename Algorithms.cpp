@@ -7,7 +7,8 @@
 #include "Graph.hpp"
 #include "Algorithms.hpp"
 
-
+namespace ariel 
+{
 bool Algorithms::isConnected(const Graph& graph) {
     int numVertices = graph.getNumVertices();
     std::vector<bool> visited(numVertices, false);
@@ -247,6 +248,7 @@ std::vector<int> Algorithms::BellmanFordAlgo(const Graph& graph, int source, int
     std::reverse(pathVertices.begin(), pathVertices.end()); // Reverse the path vertices
     //std::cout << "The length of the shortest path from source to dest is: " << graph.getEdgeWeight(pi[dest], dest) << std::endl;
     return pathVertices;
+}
 }
 
 

@@ -3,6 +3,8 @@
 #include <vector>
 #include <limits>
 
+namespace ariel
+{
 Graph::Graph(int vertices) : V(vertices), adj(V, vector<int>()), edge(V, vector<int>(V, 0)) 
 {
 
@@ -52,7 +54,7 @@ int Graph::getEdgeWeight(int src, int dest) const
         return std::numeric_limits<int>::max(); // Return infinity if there is no edge
     }
 }
-
+}
 
 
 

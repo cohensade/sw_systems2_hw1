@@ -8,7 +8,8 @@
 #define ALGORITHMS_HPP
 
 #include "Graph.hpp" // Include the graph class header file
-
+namespace ariel
+{
 class Algorithms {
 private:
     static void DFS(const Graph& graph, int vertex, std::vector<bool>& visited);
@@ -26,5 +27,5 @@ public:
     
   
 };
-
+}
 #endif /* ALGORITHMS_HPP */
