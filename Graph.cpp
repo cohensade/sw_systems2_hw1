@@ -1,6 +1,9 @@
 #include "Graph.hpp"
+#include <iostream>
+#include <vector>
+#include <limits>
 
-Graph::Graph(int vertices) : V(vertices), adj(V, vector<int>())
+Graph::Graph(int vertices) : V(vertices), adj(V, vector<int>()), edge(V, vector<int>(V, 0)) 
 {
 
 }
@@ -11,6 +14,7 @@ void Graph::loadGraph(const vector<vector<int>>& adjacencyMatrix)
         for (int j = 0; j < V; ++j) {
             if (adjacencyMatrix[i][j]) {
                 adj[i].push_back(j);
+                edge[i][j] = adjacencyMatrix[i][j]; 
             }
         }
     }
@@ -37,12 +41,21 @@ vector<int> Graph::getAdjacencyList(int vertex) const
     return adj[vertex];
 }
 
-void Graph::addEdge(int src, int dest, int weight) {
-    adj[src].push_back(dest);
-    edge[src].push_back(weight); // Update edge weight
+int Graph::getEdgeWeight(int src, int dest) const 
+{
+    // Check if there is an edge from src to dest
+    if (edge[src][dest] != 0) 
+    {
+        return edge[src][dest]; // Return the weight of the edge
+    } else 
+    {
+        return std::numeric_limits<int>::max(); // Return infinity if there is no edge
+    }
 }
 
-int Graph::getEdgeWeight(int src, int dest) const {
-    return edge[src][dest];
-}
+const vector<vector<int>>& Graph::getGraph() const {
+        return adj;
+    }
+
+
 

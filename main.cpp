@@ -4,27 +4,32 @@
 
 int main() {
     // Create an instance of the Graph class
-    Graph graph(5);
+    Graph graph(3);
 
     // Create an adjacency matrix
     vector<vector<int>> adjacencyMatrix = {
-        {0, 1, 0, 1, 0},
-        {1, 0, 0, 0, 0},
-        {0, 0, 0, 1, 1},
-        {1, 0, 1, 0, 0},
-        {0, 0, 1, 0, 0}
+    //  {1, 1, 1, 1, 1},
+    // {1, 1, 1, 1, 1},
+    // {1, 1, 1, 1, 1},
+    // {1, 1, 1, 1, 1},
+    // {1, 1, 1, 1, 1}
 
-        // {1, 1},
-        // {1, 1}
+    {0, 1, 1},
+    {1, 0, 1},
+    {1, 1, 0}
+   
+};
 
-        // {0, 1, 1, 1},
-        // {1, 0, 1, 1},
-        // {1, 1, 0, 1},
-        // {1, 1, 1, 0}
-    };
 
     // Load the graph from the adjacency matrix
     graph.loadGraph(adjacencyMatrix);
+
+    // Print the graph edges with their weights
+    for (int i = 0; i < graph.getNumVertices(); ++i) {
+        for (int j : graph.getAdjacencyList(i)) {
+            cout << "Edge from " << i << " to " << j << " with weight " << graph.getEdgeWeight(i, j) << endl;
+        }
+    }
 
     // Print the graph
     graph.printGraph();
@@ -32,14 +37,30 @@ int main() {
     // Get the number of vertices
     cout << "Number of vertices: " << graph.getNumVertices() << endl;
 
-   if (Algorithms::isConnected(graph))
-   {
-    cout << "The graph is connected. " << endl;
-   }else
-   {
-    cout << "The graph is not connected. " << endl;
-   }
-  cout << "The shortest path from vertex 0 to vertex 4 is: " << Algorithms::shortestPath(graph, 0, 4) << endl;
+    if (Algorithms::isConnected(graph)) {
+        cout << "The graph is connected. " << endl;
+    } else {
+        cout << "The graph is not connected. " << endl;
+    }
+    cout << Algorithms::shortestPath(graph, 0, 1) << endl;
+
+if (Algorithms::isContainsCycle(graph))
+{
+    cout << "The graph contain cycle. " << endl;
+}else
+{
+    cout << "The graph not contain cycle. " << endl;
+}
+
+if (Algorithms::isBipartite)
+{
+    cout << "The graph is bipartite. " << endl;
+}
+else
+{
+    cout << "The graph is not bipartite. "<< endl;
+}
+
 
     return 0;
 }

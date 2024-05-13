@@ -18,8 +18,8 @@ public:
     void printGraph() const;
     int getNumVertices() const;
     vector<int>getAdjacencyList(int vertex) const;
-    void addEdge(int src, int dest, int weight);
     int getEdgeWeight(int src, int dest) const;
+    const vector<vector<int>>& getGraph() const;
 
 };
 

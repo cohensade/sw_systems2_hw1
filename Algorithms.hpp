@@ -12,7 +12,9 @@
 class Algorithms {
 private:
     static void DFS(const Graph& graph, int vertex, std::vector<bool>& visited);
-    //static Graph transpose(const Graph& graph);
+    static std::vector<int>BellmanFordAlgo(const Graph& graph, int source, int dest);
+    static bool dfsCycleHelper(const Graph& graph, int vertex, int parent, std::vector<bool>& visited, std::vector<int>& cyclepath);
+    //static bool isContainsCycleHelper(const Graph& graph, int vertex, int parent, std::vector<bool>& visited);
 
 public:
     static bool isConnected(const Graph& graph);
@@ -20,6 +22,7 @@ public:
     static bool isContainsCycle(const Graph& graph);
     static bool isBipartite(const Graph& graph);
     static bool negativeCycle(const Graph& graph);
+    
   
 };
 
