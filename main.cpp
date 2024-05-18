@@ -1,76 +1,38 @@
-#include <vector>
 #include "Graph.hpp"
 #include "Algorithms.hpp"
+#include <iostream>
 
 int main() {
-    // Create an instance of the Graph class
-    Graph graph(3);
+    // Create a graph
+    ariel::Graph graph;
 
-    // Create an adjacency matrix
-    vector<vector<int>> adjacencyMatrix = {
-    //  {1, 1, 1, 1, 1},
-    // {1, 1, 1, 1, 1},
-    // {1, 1, 1, 1, 1},
-    // {1, 1, 1, 1, 1},
-    // {1, 1, 1, 1, 1}
+    // Define the adjacency matrix
+    std::vector<std::vector<int>> adjacencyMatrix = {
+        {0, 1, 0},
+        {1, 0, 1},
+        {0, 1, 0}
+    };
 
-    {0, 1, 0},
-    {1, 0, 16},
-    {0, -4, 0}
-   
-};
-
-
-    // Load the graph from the adjacency matrix
+    // Load the graph with the adjacency matrix
     graph.loadGraph(adjacencyMatrix);
 
-    // Print the graph edges with their weights
-    for (int i = 0; i < graph.getNumVertices(); ++i) {
-        for (int j : graph.getAdjacencyList(i)) {
-            cout << "Edge from " << i << " to " << j << " with weight " << graph.getEdgeWeight(i, j) << endl;
-        }
-    }
-
     // Print the graph
+    std::cout << "Graph:" << std::endl;
     graph.printGraph();
 
-    // Get the number of vertices
-    cout << "Number of vertices: " << graph.getNumVertices() << endl;
+    // Test algorithms
+    std::cout << "Is connected: " << ariel::Algorithms::isConnected(graph) << std::endl;
+    std::cout << "Is bipartite: " << ariel::Algorithms::isBipartite(graph) << std::endl;
+    std::cout << "Contains cycle: " << ariel::Algorithms::isContainsCycle(graph) << std::endl;
+    std::cout << "Has negative cycle: " << ariel::Algorithms::negativeCycle(graph) << std::endl;
 
-    if (Algorithms::isConnected(graph)) {
-        cout << "The graph is connected. " << endl;
-    } else {
-        cout << "The graph is not connected. " << endl;
+    // Find shortest path
+    int start = 0;
+    int end = 0;
+    int shortestPathLength = ariel::Algorithms::shortestPath(graph, start, end);
+    if (shortestPathLength != -1) {
+        std::cout << "Shortest path length from vertex " << start << " to vertex " << end << ": " << shortestPathLength << std::endl;
     }
-    cout << Algorithms::shortestPath(graph, 0, 1) << endl;
-
-if (Algorithms::isContainsCycle(graph))
-{
-    cout << "The graph contain cycle. " << endl;
-}else
-{
-    cout << "The graph not contain cycle. " << endl;
-}
-
-if (Algorithms::isBipartite(graph))
-{
-    cout << "The graph is bipartite. " << endl;
-}
-else
-{
-    cout << "The graph is not bipartite. "<< endl;
-}
-
-if (Algorithms::negativeCycle(graph))
-{
-    cout << "The graph contain negative cycle. " << endl;
-}
-else
-{
-    cout << "The graph not contain negative cycle. " << endl;
-}
-
-
 
     return 0;
 }

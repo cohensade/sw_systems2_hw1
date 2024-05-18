@@ -1,31 +1,25 @@
- // bool isConnected(); // Check if the graph is connected
-   // int shortestPath(int start, int end); // Find the shortest path between start and end
-    //bool isContainsCycle(); // Check if there is a cycle in the graph
-   // bool isBipartite(); // Check if the graph is bipartite
-   // bool negativeCycle(); // Check if there is a negative cycle in the graph
-
-   #ifndef ALGORITHMS_HPP
+ 
+#ifndef ALGORITHMS_HPP
 #define ALGORITHMS_HPP
 
-#include "Graph.hpp" // Include the graph class header file
+#include "Graph.hpp" 
+using namespace std;
 namespace ariel
 {
 class Algorithms {
 private:
-    static void DFS(const Graph& graph, int vertex, std::vector<bool>& visited);
-    static std::vector<int>BellmanFordAlgo(const Graph& graph, int source, int dest);
-    static bool dfsCycleHelper(const Graph& graph, int vertex, int parent, std::vector<bool>& visited, std::vector<int>& cyclepath);
-    //static bool isContainsCycleHelper(const Graph& graph, int vertex, int parent, std::vector<bool>& visited);
-
-public:
-    static bool isConnected(const Graph& graph);
-    static int shortestPath(const Graph& graph, int start, int end);
-    static bool isContainsCycle(const Graph& graph);
-    static bool isBipartite(const Graph& graph);
-    static bool negativeCycle(const Graph& graph);
-
+    //help algos
+    static void DFS(const Graph& graph, int vertex, vector<bool>& visited); //dfs algo
+    static vector<int>BellmanFordAlgo(const Graph& graph, int source, int dest); //bellmanford algo
+    static bool dfsCycleHelper(const Graph& graph, int vertex, int parent, vector<bool>& visited, std::vector<int>& cyclepath);
     
-  
+public:
+    static bool isConnected(const Graph& graph); //if the graph is connected it will return true else false
+    static int shortestPath(const Graph& graph, int start, int end); //return the shortest path from vertex to another
+    static bool isContainsCycle(const Graph& graph); //if the graph is contain cycle it will return true else false
+    static bool isBipartite(const Graph& graph); //if the graph is bipartite it will return true else false
+    static bool negativeCycle(const Graph& graph); //if the graph is contain negative cycle itll return true else false
+
 };
 }
 #endif /* ALGORITHMS_HPP */

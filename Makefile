@@ -1,45 +1,34 @@
-# CXX = g++
-# CXXFLAGS = -std=c++11 -Wall -Wextra
-# TARGET = main
-# SRCS = Graph.cpp Algorithms.cpp main.cpp
-# OBJS = $(SRCS:.cpp=.o)
-
-# all: $(TARGET)
-
-# $(TARGET): $(OBJS)
-# 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(TARGET)
-
-# %.o: %.cpp
-# 	$(CXX) $(CXXFLAGS) -c $< -o $@
-
-# clean:
-# 	rm -f $(OBJS) $(TARGET)
-
-
-# Compiler settings
-CXX = g++
+CXX = clang++
 CXXFLAGS = -std=c++11 -Wall -Wextra
+VALGRIND_FLAGS = -v --leak-check=full --show-leak-kinds=all --error-exitcode=99
 
-# Source files
-SRCS = Graph.cpp Algorithms.cpp main.cpp Test.cpp
+SOURCES = Graph.cpp Algorithms.cpp TestCounter.cpp Test.cpp main.cpp
+OBJECTS = $(SOURCES:.cpp=.o)
 
-# Object files
-OBJS = $(SRCS:.cpp=.o)
+# Default target to build the main executable
+all: main test
 
-# Executable name
-EXEC = main
+# Build the main executable
+main: main.o $(filter-out main.o TestCounter.o Test.o, $(OBJECTS))
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
-# Targets
-all: $(EXEC)
+# Build the test executable
+test: TestCounter.o Test.o $(filter-out main.o, $(OBJECTS))
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
-$(EXEC): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $(EXEC)
+# Run clang-tidy on the source files
+tidy:
+	clang-tidy $(SOURCES) -checks=bugprone-*,clang-analyzer-*,cppcoreguidelines-*,performance-*,portability-*,readability-*,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-cppcoreguidelines-owning-memory --warnings-as-errors=-* --
 
+# Run valgrind on the executables
+valgrind: main test
+	valgrind --tool=memcheck $(VALGRIND_FLAGS) ./main
+	valgrind --tool=memcheck $(VALGRIND_FLAGS) ./test
+
+# Compile the object files
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-test.o: Test.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
-
+# Clean up generated files
 clean:
-	rm -f $(OBJS) $(EXEC)
+	rm -f $(OBJECTS) main test
